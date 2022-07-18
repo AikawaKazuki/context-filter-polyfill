@@ -2,12 +2,12 @@ import { AvailableFilter } from './enums/available-filter.enum';
 import { SUPPORTED_FILTERS } from './globals/supported-filters.global';
 
 // feature detector
-import { supportsContextFilters } from './utils/context.utils';
+// import { supportsContextFilters } from './utils/context.utils';
 
 // the patches we'll be using
-import { applyPropertyPatches } from './patches/property.patches';
-import { applySetterPatches } from './patches/setter.patches';
-import { applyMethodPatches } from './patches/method.patches';
+// import { applyPropertyPatches } from './patches/property.patches';
+// import { applySetterPatches } from './patches/setter.patches';
+// import { applyMethodPatches } from './patches/method.patches';
 
 // add supported filters here by mapping the available
 import { none } from './filters/none.filter';
@@ -35,11 +35,17 @@ SUPPORTED_FILTERS.set(AvailableFilter.Opacity, opacity);
 SUPPORTED_FILTERS.set(AvailableFilter.Saturate, saturate);
 SUPPORTED_FILTERS.set(AvailableFilter.Sepia, sepia);
 
-// polyfill if the feature is not implemented
-if (!supportsContextFilters()) {
-  // we monkey-patch all context members to
-  // apply everything to the current mirror
-  applyPropertyPatches(HTMLCanvasElement, CanvasRenderingContext2D);
-  applySetterPatches(CanvasRenderingContext2D);
-  applyMethodPatches(CanvasRenderingContext2D);
+// // polyfill if the feature is not implemented
+// if (!supportsContextFilters()) {
+//   // we monkey-patch all context members to
+//   // apply everything to the current mirror
+//   applyPropertyPatches(HTMLCanvasElement, CanvasRenderingContext2D);
+//   applySetterPatches(CanvasRenderingContext2D);
+//   applyMethodPatches(CanvasRenderingContext2D);
+// }
+import { applyFilter } from './utils/filter.utils';
+export function applyCanvasFilter(context: CanvasRenderingContext2D, canvasFilters: CanvasFilters['filter']) {
+    applyFilter(context, canvasFilters);
 }
+
+module.exports = {applyCanvasFilter};

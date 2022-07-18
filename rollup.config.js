@@ -10,7 +10,7 @@ export default {
     {
       file: pkg.main,
       format: 'iife',
-      name: 'window',
+      name: 'contextFilterPolyfill',
       extend: true
     }
   ],
